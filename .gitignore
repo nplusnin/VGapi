@@ -10,3 +10,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# config file
+config/vg_api_config.yml
