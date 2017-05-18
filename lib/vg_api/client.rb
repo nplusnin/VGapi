@@ -1,7 +1,9 @@
 module VgApi
   class Client
-    def initialize(access_token = nil)
-      @access_token = access_token || ENV["VG_ACCESS_TOKEN"]
+    attr_reader :access_token
+
+    def initialize
+      @access_token = VgApi.access_token
     end
 
     def request(path, params = {})
@@ -26,4 +28,4 @@ module VgApi
   end
 end
 
-#client.perform_request("shards/na/players", "filter[playerNames]": "NikitaPWNZ")
+# VgApi::Client.new.request("shards/eu/players", "filter[playerNames]": "NikitaPWNZ")
