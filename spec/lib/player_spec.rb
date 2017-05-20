@@ -1,6 +1,4 @@
-require 'rspec'
-
-require_relative '../../lib/vg_api'
+require 'spec_helper'
 
 player_json = File.open('spec/fixtures/player.json').read
 
