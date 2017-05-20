@@ -10,7 +10,7 @@ module VgApi
   attr_reader :config, :access_token, :client
 
   def self.config
-    @config ||= YAML::load_file(File.join(__dir__, '../config/vg_api_config.yml'))
+    @config ||= YAML::load_file('config/vg_api_config.yml')
   end
 
   def self.access_token
