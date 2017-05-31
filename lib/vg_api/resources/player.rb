@@ -6,7 +6,7 @@ module VgApi
       url = [api_url(region), player_id].join('/')
 
       result = VgApi::Client.new.request(url)
-      raise "PlayerNotFound" if result.code == 404
+      raise VgApi::PlayerNotFound if result.code == 404
       VgApi::Player.new(result)
     end
 
@@ -14,7 +14,7 @@ module VgApi
       url = api_url(region)
 
       result = VgApi::Client.new.request(url, "filter[playerNames]" => name)
-      raise "PlayerNotFound" if result.code == 404
+      raise VgApi::PlayerNotFound if result.code == 404
       VgApi::Player.new(result)
     end
 
