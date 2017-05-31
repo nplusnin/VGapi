@@ -1,4 +1,10 @@
 module VgApi
+  class PlayerNotFound < StandardError
+    def initialize(msg="Player not found")
+      super(msg)
+    end
+  end
+
   class Player
     attr_reader :response, :data
 
@@ -6,7 +12,7 @@ module VgApi
       url = [api_url(region), player_id].join('/')
 
       result = VgApi::Client.new.request(url)
-      raise VgApi::PlayerNotFound if result.code == 404
+      raise VgApi::PlayerNotFound.new if result.code == 404
       VgApi::Player.new(result)
     end
 
@@ -14,7 +20,7 @@ module VgApi
       url = api_url(region)
 
       result = VgApi::Client.new.request(url, "filter[playerNames]" => name)
-      raise VgApi::PlayerNotFound if result.code == 404
+      raise VgApi::PlayerNotFound.new if result.code == 404
       VgApi::Player.new(result)
     end
 
