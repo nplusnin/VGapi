@@ -1,6 +1,6 @@
 # VgApi
 
-This is provider for VainGlory api https://developer.vainglorygame.com/users/sign_in.
+This is provider for VainGlory api https://developer.vainglorygame.com.
 
 ## Installation
 
@@ -41,3 +41,7 @@ VG_ACCESS_TOKEN: your_access_token
 ```ruby
 VgApi::Player.find_by_name('name', 'region')
 ```
+
+## TO DO
+1. Get Players matches
+2. Parse matches stat and convert to normal wrapper
