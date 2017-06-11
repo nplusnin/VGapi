@@ -3,8 +3,7 @@ require "httparty"
 require "yaml"
 
 require_relative "vg_api/client"
-require_relative "vg_api/resources/player"
-require_relative "vg_api/resources/matches"
+require_relative "vg_api/match"
 
 module VgApi
   attr_reader :config, :access_token, :client
