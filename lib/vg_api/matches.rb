@@ -1,6 +1,8 @@
-matches_dir = [Dir.pwd, 'lib/vg_api/matches/*.rb'].join('/')
 require_relative "matches/record"
-Dir[matches_dir].each {|file| require_relative file }
+require_relative "matches/match"
+require_relative "matches/participant"
+require_relative "matches/player"
+require_relative "matches/roster"
 
 module VgApi
   class VgApi::NotFound < StandardError
