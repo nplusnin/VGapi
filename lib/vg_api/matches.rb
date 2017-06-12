@@ -27,7 +27,7 @@ module VgApi
       end
 
       @included = data["included"]
-      get_shared_records
+      get_shared_data
     end
 
     def find_included(type, ids)
@@ -36,12 +36,12 @@ module VgApi
       end
     end
 
-    def get_shared_records
+    def get_shared_data
       i = []
       h = []
       included.each do |record|
         if record["type"] == 'participant'
-          i + record["attributes"]["stats"]["items"]
+          record["attributes"]["stats"]["items"].map { |item| i.push(item) }
           h.push(record["attributes"]["actor"])
         end
       end
