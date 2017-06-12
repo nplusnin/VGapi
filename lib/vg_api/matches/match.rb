@@ -1,7 +1,5 @@
 module VgApi
   class Match < Record
-    attr_reader :winners_team
-
     def game_mode
       data['attributes']['gameMode']
     end
@@ -51,8 +49,32 @@ module VgApi
         player[:name]
       end.include?(player_name)
     end
+
+    def players
+      @players ||= get_players
+    end
+
+    def player(player_name)
+      players.select do |p|
+        p[:name] == player_name
+      end.first
+    end
     
   private
+
+    def get_players
+      rosters.map do |p1|
+        p1.participants.map do |p2|
+          {
+            name: p2.player_name,
+            stats: p2.stats,
+            hero: p2.hero,
+            items: p2.items,
+            hero_skin: p2.skin
+          }
+        end
+      end.inject('+')
+    end
 
     def get_rosters
       parent.find_included('roster', rosters_ids).map do |roster|

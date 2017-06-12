@@ -37,6 +37,54 @@ describe VgApi::Match do
     expect(match.winners_team).to eq(match.rosters.first)
   end
 
+  it '.player' do
+    expected_hash = {
+        :name=>"NikitaPWNZ",
+        :stats=>{:kills=>5, :deaths=>5, :assists=>9, :cs=>73},
+        :hero=>"blackfeather",
+        :items=> [
+          "Slumbering Husk",
+          "Serpent Mask",
+          "Breaking Point",
+          "War Treads",
+          "Aegis",
+          "Atlas Pauldron"
+        ],
+        :hero_skin=>nil
+      }
+      
+    expect(match.player('NikitaPWNZ')).to eq(expected_hash)
+  end
+
+  describe '.players' do
+    it 'should return array' do
+      expect(match.players).to be_a(Array)
+    end
+
+    it 'array should contain six objects' do
+      expect(match.players.count).to eq(6)
+    end
+
+    it 'should contain correct data' do
+      expected_player = {
+        :name=>"NikitaPWNZ",
+        :stats=>{:kills=>5, :deaths=>5, :assists=>9, :cs=>73},
+        :hero=>"blackfeather",
+        :items=> [
+          "Slumbering Husk",
+          "Serpent Mask",
+          "Breaking Point",
+          "War Treads",
+          "Aegis",
+          "Atlas Pauldron"
+        ],
+        :hero_skin=>nil
+      }
+
+      expect(match.players.first).to eq(expected_player)
+    end
+  end
+
   describe '.player_win?' do
     it 'should return true if player win match' do
       expect(match.player_win?("NikitaPWNZ")).to eq(true)

@@ -16,6 +16,25 @@ module VgApi
       player ||= get_player
     end
 
+    # Протестировать
+
+    def player_name
+      player.name
+    end
+
+    def stats
+      {
+        kills: data['attributes']['stats']['kills'],
+        deaths: data['attributes']['stats']['deaths'],
+        assists: data['attributes']['stats']['assists'],
+        cs: data['attributes']['stats']['minionKills']
+      }
+    end
+
+    def skin
+      data['attributes']['skinKey']
+    end
+
   private
 
     def get_player

@@ -19,7 +19,7 @@ module VgApi
       Matches.new(JSON.parse(result))
     end
 
-    attr_reader :matches, :included
+    attr_reader :matches, :included, :items, :heroes
 
     def initialize(data)
       @matches = data["data"].map do |record|
@@ -27,6 +27,7 @@ module VgApi
       end
 
       @included = data["included"]
+      get_shared_records
     end
 
     def find_included(type, ids)
@@ -35,10 +36,24 @@ module VgApi
       end
     end
 
+    def get_shared_records
+      i = []
+      h = []
+      included.each do |record|
+        if record["type"] == 'participant'
+          i + record["attributes"]["stats"]["items"]
+          h.push(record["attributes"]["actor"])
+        end
+      end
+
+      @items = i.uniq
+      @heroes = h.uniq
+    end
+
   private
     def self.default_params
       {
-        "page[limit]": 15,
+        "page[limit]": 10,
         "sort": "-createdAt",
         "filter[createdAt-start]": "2017-01-01T08:25:30Z"
       }
