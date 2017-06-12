@@ -8,6 +8,10 @@ module VgApi
       data['attributes']['stats']['side']
     end
 
+    def players
+      @players ||= get_players
+    end
+
     def participant_ids
       data["relationships"]["participants"]["data"].map do |p|
         p['id']
@@ -19,6 +23,12 @@ module VgApi
     end
 
   private
+
+    def get_players
+      participants.map do |p|
+        { hero: p.hero, name: p.player.name }
+      end
+    end
 
     def get_participants
       parent.find_included('participant', participant_ids).map do |participant|

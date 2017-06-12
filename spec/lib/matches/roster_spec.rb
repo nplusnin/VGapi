@@ -32,6 +32,16 @@ describe VgApi::Roster do
     expect(roster.side).to eq("right/red")
   end
 
+  it '.players' do
+    expected_players = [
+      {:hero=>"blackfeather", :name=>"NikitaPWNZ"}, 
+      {:hero=>"ardan", :name=>"Nensons"}, 
+      {:hero=>"skaarf", :name=>"c0cucka"}
+    ]
+
+    expect(roster.players).to eq(expected_players)
+  end
+
   describe '.participants' do
     it 'should return array' do
       expect(roster.participants).to be_a(Array)

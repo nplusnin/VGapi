@@ -25,6 +25,28 @@ describe VgApi::Match do
     expect(match.rosters_ids).to eq(expected_rosters)
   end
 
+  it '.right_side' do
+    expect(match.right_side).to eq(match.rosters.first)
+  end
+
+  it '.left_side' do
+    expect(match.left_side).to eq(match.rosters.last)
+  end
+
+  it '.winners_team' do
+    expect(match.winners_team).to eq(match.rosters.first)
+  end
+
+  describe '.player_win?' do
+    it 'should return true if player win match' do
+      expect(match.player_win?("NikitaPWNZ")).to eq(true)
+    end
+
+    it 'should return false if player loose match' do
+      expect(match.player_win?("KRATOS2S")).to eq(false)
+    end
+  end
+
   describe '.rosters' do
     it 'should return array' do
       expect(match.rosters).to be_a(Array)
