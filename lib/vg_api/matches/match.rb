@@ -21,7 +21,7 @@ module VgApi
     end
 
     def right_side
-      @left_side ||= rosters.select do |r|
+      @right_side ||= rosters.select do |r|
         r.side == "right/red"
       end.first
     end
