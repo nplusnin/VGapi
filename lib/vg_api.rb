@@ -4,6 +4,7 @@ require "yaml"
 
 require_relative "vg_api/client"
 require_relative "vg_api/matches"
+require_relative "vg_api/players"
 
 module VgApi
   attr_reader :config, :access_token, :client
