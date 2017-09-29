@@ -55,8 +55,12 @@ module VgApi
       {
         "page[limit]": 10,
         "sort": "-createdAt",
-        "filter[createdAt-start]": "2017-01-01T08:25:30Z"
+        "filter[createdAt-start]": time_28_days_ago
       }
+    end
+
+    def self.time_28_days_ago
+      (Time.now - 28.days).strftime("%Y-%m-%dT%H:%M:%SZ")
     end
   end
 end

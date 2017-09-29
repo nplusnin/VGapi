@@ -1,6 +1,8 @@
 require "vg_api/version"
 require "httparty"
 require "yaml"
+require 'active_support'
+require 'active_support/core_ext'
 
 require_relative "vg_api/client"
 require_relative "vg_api/matches"
