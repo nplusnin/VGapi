@@ -1,10 +1,9 @@
 require 'spec_helper'
-require_relative '../../../lib/vg_api'
 
-describe VgApi::Participant do
+describe VgApi::Matches::Participant do
   let(:match) do
     file = File.read("spec/fixtures/match.json")
-    matches = VgApi::Matches.new(JSON.parse(file))
+    matches = VgApi::Matches::Collection.new(JSON.parse(file))
     matches.matches.first
   end
 
@@ -22,6 +21,10 @@ describe VgApi::Participant do
     expect(participant.player_id).to eq("04956f82-4b47-11e5-9536-06b48b82cd49")
   end
 
+  it '.krakens' do
+    expect(participant.krakens).to eq(0)
+  end
+
   describe '.items' do
     it 'should return array' do
       expect(participant.items).to be_a(Array)
@@ -36,7 +39,7 @@ describe VgApi::Participant do
 
   describe '.players' do
     it 'should return player object' do
-      expect(participant.player).to be_a(VgApi::Player)
+      expect(participant.player).to be_a(VgApi::Matches::Player)
     end
   end
 end

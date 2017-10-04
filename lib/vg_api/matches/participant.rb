@@ -1,47 +1,57 @@
 module VgApi
-  class Participant < Record
-    def hero
-      data['attributes']['actor'].gsub('*', '').downcase
-    end
+  module Matches
+    class Participant < Record
+      def hero
+        data['attributes']['actor'].gsub('*', '').downcase
+      end
 
-    def items
-      data['attributes']['stats']['items']
-    end
+      def items
+        stats['items']
+      end
 
-    def player_id
-      data["relationships"]["player"]["data"]["id"]
-    end
+      def player_id
+        data["relationships"]["player"]["data"]["id"]
+      end
 
-    def player
-      player ||= get_player
-    end
+      def player
+        player ||= get_player
+      end
 
-    # Протестировать
+      def stats
+        data['attributes']['stats']
+      end
 
-    def player_name
-      player.name
-    end
+      def kills
+        stats['kills']
+      end
 
-    def stats
-      {
-        kills: data['attributes']['stats']['kills'],
-        deaths: data['attributes']['stats']['deaths'],
-        assists: data['attributes']['stats']['assists'],
-        cs: data['attributes']['stats']['minionKills']
-      }
-    end
+      def deaths
+        stats['deaths']
+      end
 
-    def skin
-      data['attributes']['skinKey']
-    end
+      def assists
+        stats['assists']
+      end
 
-  private
+      def cs
+        stats['minionKills']
+      end
 
-    def get_player
-      parent.find_included("player", player_id).map do |player|
-        VgApi::Player.new(player, self)
-      end.first
+      def krakens
+        stats['krakenCaptures']
+      end
+
+      def skin
+        data['attributes']['skinKey']
+      end
+
+    private
+
+      def get_player
+        parent.find_included("player", player_id).map do |player|
+          Player.new(player, self)
+        end.first
+      end
     end
   end
-
 end

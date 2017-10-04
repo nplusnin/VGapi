@@ -1,10 +1,9 @@
 require 'spec_helper'
-require_relative '../../../lib/vg_api'
 
-describe VgApi::Match do
+describe VgApi::Matches::Match do
   let(:match) do
     file = File.read("spec/fixtures/match.json")
-    matches = VgApi::Matches.new(JSON.parse(file))
+    matches = VgApi::Matches::Collection.new(JSON.parse(file))
     matches.matches.first
   end
 
@@ -37,51 +36,21 @@ describe VgApi::Match do
     expect(match.winners_team).to eq(match.rosters.first)
   end
 
-  it '.player' do
-    expected_hash = {
-        :name=>"NikitaPWNZ",
-        :stats=>{:kills=>5, :deaths=>5, :assists=>9, :cs=>73},
-        :hero=>"blackfeather",
-        :items=> [
-          "Slumbering Husk",
-          "Serpent Mask",
-          "Breaking Point",
-          "War Treads",
-          "Aegis",
-          "Atlas Pauldron"
-        ],
-        :hero_skin=>nil
-      }
-      
-    expect(match.player('NikitaPWNZ')).to eq(expected_hash)
+  it '.participants' do    
+    expect(match.participant('NikitaPWNZ')).to be_a(VgApi::Matches::Participant)
   end
 
   describe '.players' do
     it 'should return array' do
-      expect(match.players).to be_a(Array)
+      expect(match.participants).to be_a(Array)
     end
 
     it 'array should contain six objects' do
-      expect(match.players.count).to eq(6)
+      expect(match.participants.count).to eq(6)
     end
 
-    it 'should contain correct data' do
-      expected_player = {
-        :name=>"NikitaPWNZ",
-        :stats=>{:kills=>5, :deaths=>5, :assists=>9, :cs=>73},
-        :hero=>"blackfeather",
-        :items=> [
-          "Slumbering Husk",
-          "Serpent Mask",
-          "Breaking Point",
-          "War Treads",
-          "Aegis",
-          "Atlas Pauldron"
-        ],
-        :hero_skin=>nil
-      }
-
-      expect(match.players.first).to eq(expected_player)
+    it 'should return VgApi::Player class instance' do
+      expect(match.participants.first).to be_a(VgApi::Matches::Participant)
     end
   end
 
@@ -101,7 +70,7 @@ describe VgApi::Match do
     end
 
     it 'should return roster object in array' do
-      expect(match.rosters.first).to be_a(VgApi::Roster)
+      expect(match.rosters.first).to be_a(VgApi::Matches::Roster)
     end
   end
 end

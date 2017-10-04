@@ -1,17 +1,16 @@
 require 'spec_helper'
-require_relative '../../../lib/vg_api'
 
-describe VgApi::Roster do
+describe VgApi::Matches::Roster do
   let(:match) do
     file = File.read("spec/fixtures/match.json")
-    matches = VgApi::Matches.new(JSON.parse(file))
+    matches = VgApi::Matches::Collection.new(JSON.parse(file))
     matches.matches.first
   end
 
   let(:roster) { match.rosters.first }
 
-  it '.win' do
-    expect(roster.win).to eq(true)
+  it '.win?' do
+    expect(roster.win?).to eq(true)
   end
 
   it 'should return correct data in first roster' do
@@ -32,6 +31,22 @@ describe VgApi::Roster do
     expect(roster.side).to eq("right/red")
   end
 
+  it '.gold' do
+    expect(roster.gold).to eq(56365)
+  end
+
+  it '.krakens' do
+    expect(roster.krakens).to eq(1)
+  end
+
+  it '.aces' do
+    expect(roster.aces).to eq(3)
+  end
+
+  it '.kills' do
+    expect(roster.kills).to eq(17)
+  end
+
   it '.players' do
     expected_players = [
       {:hero=>"blackfeather", :name=>"NikitaPWNZ"}, 
@@ -48,7 +63,7 @@ describe VgApi::Roster do
     end
 
     it 'should Participant object in array' do
-      expect(roster.participants.first).to be_a(VgApi::Participant)
+      expect(roster.participants.first).to be_a(VgApi::Matches::Participant)
     end
   end
 end

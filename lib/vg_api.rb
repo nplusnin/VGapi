@@ -4,9 +4,15 @@ require "yaml"
 require 'active_support'
 require 'active_support/core_ext'
 
-require_relative "vg_api/client"
-require_relative "vg_api/matches"
-require_relative "vg_api/players"
+require "vg_api/version"
+require "vg_api/client"
+require "vg_api/player"
+require "vg_api/matches/record"
+require "vg_api/matches/collection"
+require "vg_api/matches/match"
+require "vg_api/matches/participant"
+require "vg_api/matches/player"
+require "vg_api/matches/roster"
 
 module VgApi
   attr_reader :config, :access_token, :client

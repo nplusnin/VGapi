@@ -1,11 +1,10 @@
 require 'spec_helper'
-require_relative '../../lib/vg_api'
 
-describe VgApi::Players do
+describe VgApi::Player do
   describe "Player should return correct data" do
     let(:player) do
       file = File.read("spec/fixtures/player.json")
-      player = VgApi::Players.new(JSON.parse(file))
+      player = VgApi::Player.new(JSON.parse(file)["data"][0])
     end
 
     it "should return name" do

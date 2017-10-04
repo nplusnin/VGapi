@@ -1,10 +1,9 @@
 require 'spec_helper'
-require_relative '../../../lib/vg_api'
 
-describe VgApi::Player do
+describe VgApi::Matches::Player do
   let(:match) do
     file = File.read("spec/fixtures/match.json")
-    matches = VgApi::Matches.new(JSON.parse(file))
+    matches = VgApi::Matches::Collection.new(JSON.parse(file))
     matches.matches.first
   end
 
