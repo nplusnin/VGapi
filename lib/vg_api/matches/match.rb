@@ -1,12 +1,16 @@
 module VgApi
   module Matches
     class Match < Record
+      def attributes
+        @attributes ||= data['attributes']
+      end
+
       def game_mode
-        data['attributes']['gameMode']
+        attributes['gameMode']
       end
 
       def duration
-        data['attributes']['duration']
+        attributes['duration']
       end
 
       def rosters_ids

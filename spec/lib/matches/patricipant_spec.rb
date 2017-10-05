@@ -31,7 +31,7 @@ describe VgApi::Matches::Participant do
     end
 
     it 'should return correct data' do
-      items = ["Slumbering Husk", "Serpent Mask", "Breaking Point", "War Treads", "Aegis", "Atlas Pauldron"]
+      items = ["slumbering-husk", "serpent-mask", "breaking-point", "war-treads", "aegis", "atlas-pauldron"]
 
       expect(participant.items).to eq(items)
     end

@@ -6,7 +6,9 @@ module VgApi
       end
 
       def items
-        stats['items']
+        @items ||= stats['items'].map do |item|
+          item.gsub(' ', '-').downcase
+        end
       end
 
       def player_id

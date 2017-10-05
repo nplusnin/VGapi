@@ -5,24 +5,28 @@ module VgApi
         data['attributes']['won'] == "true" ? true : false
       end
 
+      def stats
+        @stats ||= data['attributes']['stats']
+      end
+
       def side
-        data['attributes']['stats']['side']
+        stats['side']
       end
 
       def gold
-        data['attributes']['stats']['gold']
+        stats['gold']
       end
 
       def aces
-        data['attributes']['stats']['acesEarned']
+        stats['acesEarned']
       end
 
       def kills
-        data['attributes']['stats']['heroKills']
+        stats['heroKills']
       end
 
       def krakens
-        data['attributes']['stats']['krakenCaptures']
+        stats['krakenCaptures']
       end
 
       def players
