@@ -14,7 +14,7 @@ module VgApi
         Collection.new(JSON.parse(result))
       end
 
-      attr_reader :matches, :included, :items, :heroes
+      attr_reader :matches, :included
 
       def initialize(data)
         @matches = data["data"].map do |record|
@@ -22,26 +22,12 @@ module VgApi
         end
 
         @included = data["included"]
-        get_shared_data
       end
 
       def find_included(type, ids)
         included.select do |record|
           record["type"] == type && ids.include?(record["id"])
         end
-      end
-
-      def get_shared_data
-        i, h = [], []
-
-        included.each do |record|
-          if record["type"] == 'participant'
-            record["attributes"]["stats"]["items"].map { |item| i.push(item) }
-            h.push(record["attributes"]["actor"])
-          end
-        end
-
-        @items, @heroes = i.uniq, h.uniq
       end
 
     private
