@@ -1,6 +1,6 @@
 module VgApi
   class VgApi::NotFound < StandardError
-    def initialize(msg="Player not found")
+    def initialize(msg="Not found")
       super(msg)
     end
   end
@@ -14,9 +14,11 @@ module VgApi
         Collection.new(JSON.parse(result))
       end
 
-      attr_reader :matches, :included
+      attr_reader :matches, :data, :included
 
       def initialize(data)
+        @data = data
+
         @matches = data["data"].map do |record|
           Match.new(record, self)
         end
@@ -30,18 +32,26 @@ module VgApi
         end
       end
 
+      def next
+        raise VgApi::NotFound.new unless next_link
+        result = VgApi.client.request(next_link)
+        Collection.new(JSON.parse(result))
+      end
+
     private
       def self.default_params
         {
           "page[limit]": 10,
-          "sort": "-createdAt",
-          "filter[createdAt-start]": time_28_days_ago
+          "sort": "-createdAt"
         }
       end
 
-      def self.time_28_days_ago
-        (Time.now - 28.days).strftime("%Y-%m-%dT%H:%M:%SZ")
+      def next_link
+        data["links"]["next"]
       end
     end
   end
 end
+
+# Time format
+# .strftime("%Y-%m-%dT%H:%M:%SZ")

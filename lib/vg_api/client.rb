@@ -7,7 +7,7 @@ module VgApi
     end
 
     def request(path, params = {})
-      url = [host, path].join('/')
+      url = path.scan(/^(https:\/\/)/).empty? ? [host, path].join('/') : path
 
       HTTParty.get(url, headers: headers, query: params)
     end
