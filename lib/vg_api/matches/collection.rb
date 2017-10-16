@@ -10,6 +10,7 @@ module VgApi
       def self.find_by(server, query = {})
         params = default_params.merge(query)
         result = VgApi.client.request("shards/#{server}/matches", params)
+        puts result.body
         raise VgApi::NotFound.new if result.code == 404
         Collection.new(JSON.parse(result))
       end
@@ -36,6 +37,10 @@ module VgApi
         raise VgApi::NotFound.new unless next_link
         result = VgApi.client.request(next_link)
         Collection.new(JSON.parse(result))
+      end
+
+      def last?
+        !next_link
       end
 
     private
