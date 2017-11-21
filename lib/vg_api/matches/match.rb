@@ -44,9 +44,9 @@ module VgApi
       end
 
       def winners_team
-        rosters.select do |roster|
-          roster.win?
-        end.first
+        rosters.each do |roster|
+          return roster if roster.win?
+        end
       end
 
       def player_win?(name)
@@ -60,9 +60,9 @@ module VgApi
       end
 
       def participant(name)
-        participants.select do |p|
-          p.player.name == name
-        end.first
+        participants.each do |p|
+          return p if p.player.name == name
+        end
       end
       
     private
