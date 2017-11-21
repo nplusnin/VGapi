@@ -24,15 +24,15 @@ module VgApi
       end
 
       def right_side
-        @right_side ||= rosters.select do |r|
-          r.side == "right/red"
-        end.first
+        @right_side ||= rosters.each do |r|
+          return r if r.side == "right/red"
+        end
       end
 
       def left_side
-        @left_side ||= rosters.select do |r|
-          r.side == "left/blue"
-        end.first
+        @left_side ||= rosters.each do |r|
+          return r if r.side == "left/blue"
+        end
       end
 
       alias_method :red_team, :right_side
@@ -61,6 +61,14 @@ module VgApi
       end
 
       alias_method :player, :participant
+
+      def oponents(player_name)
+        @oponents ||= get_oponents(player_name)
+      end
+
+      def allies(player_name)
+        @allies ||= get_allies(player_name)
+      end
       
     private
 
@@ -73,6 +81,18 @@ module VgApi
       def get_rosters
         parent.find_included('roster', rosters_ids).map do |roster|
           Roster.new(roster, self)
+        end
+      end
+
+      def get_oponents(player_name)
+        rosters.each do |roster|
+          return roster.players if !roster.player?(player_name)
+        end
+      end
+
+      def get_allies(player_name)
+        rosters.each do |roster|
+          return roster.allies(player_name) if roster.player?(player_name)
         end
       end
     end

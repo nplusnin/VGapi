@@ -73,4 +73,31 @@ describe VgApi::Matches::Match do
       expect(match.rosters.first).to be_a(VgApi::Matches::Roster)
     end
   end
+
+  describe '.oponents' do
+    it 'should return array' do
+      expect(match.oponents("NikitaPWNZ")).to be_a(Array)
+    end
+
+    it 'should return participant object in array' do
+      expected_array = [
+        {hero: "glaive", name: "AzianStunna"},
+        {hero: "taka", name: "0neManArmy"},
+        {hero: "catherine", name: "Idrihl"}
+      ]
+
+      expect(match.oponents("NikitaPWNZ")).to eq(expected_array)
+    end
+  end
+
+  describe '.allies' do
+    it 'should return array' do
+      expect(match.allies("NikitaPWNZ")).to be_a(Array)
+    end
+
+    it 'should return correct data' do
+      expected_array = [{:hero=>"ardan", :name=>"Nensons"}, {:hero=>"skaarf", :name=>"c0cucka"}]
+      expect(match.allies("NikitaPWNZ")).to eq(expected_array)
+    end
+  end
 end

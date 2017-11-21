@@ -57,6 +57,21 @@ describe VgApi::Matches::Roster do
     expect(roster.players).to eq(expected_players)
   end
 
+  it '.allies' do
+    expected_allies = [{:hero=>"ardan", :name=>"Nensons"}, {:hero=>"skaarf", :name=>"c0cucka"}]
+    expect(roster.allies('NikitaPWNZ')).to eq(expected_allies)
+  end
+
+  describe '.player?' do
+    it 'should return true if player name exist in roster' do
+      roster.player?("NikitaPWNZ")
+    end
+
+    it 'should return false if player name not exist in roster' do
+      roster.player?("UnknowPlayer")
+    end
+  end
+
   describe '.participants' do
     it 'should return array' do
       expect(roster.participants).to be_a(Array)

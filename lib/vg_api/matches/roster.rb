@@ -33,6 +33,14 @@ module VgApi
         @players ||= get_players
       end
 
+      def player?(player_name)
+        players.each do |p|
+          return true if p[:name] == player_name
+        end
+
+        false
+      end
+
       def participant_ids
         data["relationships"]["participants"]["data"].map do |p|
           p['id']
@@ -41,6 +49,12 @@ module VgApi
 
       def participants
         @participants ||= get_participants
+      end
+
+      def allies(player_name)
+        players.select do |p|
+          p[:name] != player_name
+        end
       end
 
     private
