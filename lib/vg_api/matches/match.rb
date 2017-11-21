@@ -35,13 +35,8 @@ module VgApi
         end.first
       end
 
-      def red_team
-        right_side
-      end
-
-      def blue_team
-        left_side
-      end
+      alias_method :red_team, :right_side
+      alias_method :blue_team, :left_side
 
       def winners_team
         rosters.each do |roster|
@@ -64,6 +59,8 @@ module VgApi
           return p if p.player.name == name
         end
       end
+
+      alias_method :player, :participant
       
     private
 
