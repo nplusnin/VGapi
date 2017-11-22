@@ -25,6 +25,10 @@ describe VgApi::Matches::Participant do
     expect(participant.krakens).to eq(0)
   end
 
+  it '.kda' do
+    expect(participant.kda).to eq(2.8)
+  end
+
   describe '.items' do
     it 'should return array' do
       expect(participant.items).to be_a(Array)

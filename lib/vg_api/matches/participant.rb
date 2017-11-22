@@ -47,6 +47,10 @@ module VgApi
         data['attributes']['skinKey']
       end
 
+      def kda
+        ((kills.to_f + assists.to_f) / deaths.to_f).round(2)
+      end
+
     private
 
       def get_player
