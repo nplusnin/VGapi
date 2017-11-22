@@ -4,7 +4,7 @@ describe VgApi::Player do
   describe "Player should return correct data" do
     let(:player) do
       file = File.read("spec/fixtures/player.json")
-      player = VgApi::Player.new(JSON.parse(file)["data"][0])
+      VgApi::Player.new(JSON.parse(file)["data"][0])
     end
 
     it "should return name" do
