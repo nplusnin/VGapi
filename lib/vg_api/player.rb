@@ -1,8 +1,8 @@
 module VgApi
   class Player
     def self.find_by_name(server, names)
-      query = names.kind_of?(Array) ? names.join(",") : names
-      result = VgApi.client.request("shards/#{server}/players", "filter[playerNames]": query)
+      player_names = names.kind_of?(Array) ? names.join(",") : names
+      result = VgApi.client.request("shards/#{server}/players", "filter[playerNames]": player_names)
       
       if result["data"].count > 1
         result["data"].map do |player|
