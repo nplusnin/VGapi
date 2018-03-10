@@ -10,9 +10,8 @@ module VgApi
       def self.find_by(server, query = {})
         params = default_params.merge(query)
         result = VgApi.client.request("shards/#{server}/matches", params)
-        puts result.body
         raise VgApi::NotFound.new if result.code == 404
-        Collection.new(JSON.parse(result))
+        Collection.new(JSON.parse(result.body))
       end
 
       attr_reader :matches, :data, :included
