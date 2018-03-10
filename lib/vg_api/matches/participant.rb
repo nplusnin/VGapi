@@ -23,6 +23,10 @@ module VgApi
         data['attributes']['stats']
       end
 
+      def stats_h
+        { kills: kills, deaths: deaths, assists: assists, cs: cs }
+      end
+
       def kills
         stats['kills']
       end
@@ -49,6 +53,10 @@ module VgApi
 
       def kda
         ((kills.to_f + assists.to_f) / deaths.to_f).round(2)
+      end
+
+      def to_h
+        { player.name => stats_h.merge(items: items)  }
       end
 
     private

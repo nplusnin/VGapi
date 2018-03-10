@@ -57,6 +57,11 @@ module VgApi
         end
       end
 
+      def to_h
+        players_h = participants.map { |p| p.to_h }
+        { win: win?, players: players_h }
+      end
+
     private
 
       def get_players

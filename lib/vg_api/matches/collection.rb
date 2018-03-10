@@ -42,6 +42,12 @@ module VgApi
         !next_link
       end
 
+      def to_json
+        matches.map do |m|
+          m.to_h
+        end.to_json
+      end
+
     private
       def self.default_params
         {

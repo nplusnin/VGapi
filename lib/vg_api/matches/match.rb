@@ -69,6 +69,11 @@ module VgApi
       def allies(player_name)
         @allies ||= get_allies(player_name)
       end
+
+      def to_h
+        { id: id, duration: duration, game_mode: game_mode,
+          right_side: right_side.to_h, left_side: left_side.to_h }
+      end
       
     private
 

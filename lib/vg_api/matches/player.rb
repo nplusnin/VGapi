@@ -4,6 +4,10 @@ module VgApi
       def name
         data['attributes']['name']
       end
+
+      def to_h
+        { name: name }
+      end
     end
   end
 end
