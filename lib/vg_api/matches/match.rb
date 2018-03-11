@@ -84,7 +84,7 @@ module VgApi
       end
 
       def get_rosters
-        parent.find_included('roster', rosters_ids).map do |roster|
+        parent.select_included('roster', rosters_ids).map do |roster|
           Roster.new(roster, self)
         end
       end

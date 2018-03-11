@@ -62,9 +62,8 @@ module VgApi
     private
 
       def get_player
-        parent.find_included("player", player_id).map do |player|
-          Player.new(player, self)
-        end.first
+        p = parent.find_included("player", player_id)
+        Player.new(p, self)
       end
     end
   end

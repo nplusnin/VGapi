@@ -27,6 +27,12 @@ module VgApi
       end
 
       def find_included(type, ids)
+        included.find do |record|
+          record["type"] == type && ids.include?(record["id"])
+        end
+      end
+
+      def select_included(type, ids)
         included.select do |record|
           record["type"] == type && ids.include?(record["id"])
         end

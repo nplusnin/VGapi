@@ -66,12 +66,13 @@ module VgApi
 
       def get_players
         participants.map do |p|
+          puts p.player.name
           { hero: p.hero, name: p.player.name }
         end
       end
 
       def get_participants
-        parent.find_included('participant', participant_ids).map do |participant|
+        parent.select_included('participant', participant_ids).map do |participant|
           Participant.new(participant, self)
         end
       end
