@@ -56,7 +56,7 @@ module VgApi
       end
 
       def to_h
-        { player.name => stats_h.merge(items: items)  }
+        { name: player.name, stats: stats_h, items: items }
       end
 
     private
