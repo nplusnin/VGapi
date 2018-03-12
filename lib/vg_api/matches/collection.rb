@@ -41,7 +41,7 @@ module VgApi
       def next
         raise VgApi::NotFound.new unless next_link
         result = VgApi.client.request(next_link)
-        Collection.new(JSON.parse(result))
+        Collection.new(JSON.parse(result.body))
       end
 
       def last?
