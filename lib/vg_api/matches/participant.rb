@@ -56,7 +56,7 @@ module VgApi
       end
 
       def to_h
-        { name: player.name, stats: stats_h, items: items }
+        { name: player.name, stats: stats_h, items: items, win: parent.win? }
       end
 
     private

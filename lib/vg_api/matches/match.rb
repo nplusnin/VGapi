@@ -24,22 +24,28 @@ module VgApi
       end
 
       def right_side
-        @right_side ||= rosters.each do |r|
-          return r if r.side == "right/red"
+        @right_side ||= rosters.find do |r|
+          r.side == "right/red"
         end
+
+        @winner_team = @right_side if @right_side.win?
+        @right_side
       end
 
       def left_side
-        @left_side ||= rosters.each do |r|
-          return r if r.side == "left/blue"
+        @left_side ||= rosters.find do |r|
+          r.side == "left/blue"
         end
+
+        @winner_team = @left_side if @left_side.win?
+        @left_side
       end
 
       alias_method :red_team, :right_side
       alias_method :blue_team, :left_side
 
       def winners_team
-        rosters.each do |roster|
+        @winner_team ||= rosters.each do |roster|
           return roster if roster.win?
         end
       end

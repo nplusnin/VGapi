@@ -66,7 +66,6 @@ module VgApi
 
       def get_players
         participants.map do |p|
-          puts p.player.name
           { hero: p.hero, name: p.player.name }
         end
       end
